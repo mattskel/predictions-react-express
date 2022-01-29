@@ -18,3 +18,5 @@ Webpack configuration is in webpack.config.js
 entry tells Webpack where our application starts
 module defines how javascript modules are transformed according to the rules
 output tells Webpack where to put bundled code 
+
+React. ReactDOM.render is the function that tells React what to render and where to render it
