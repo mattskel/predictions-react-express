@@ -5,3 +5,7 @@ node is a popular platform to run a web server that can host react apps
 
 You can initialise your project with node using npm init
 If node has been installed globally, you wont see a node_modules folder
+
+Building a react app from scratch
+The publich directory will handle any static assets
+Add babel. Babel compiles the code
