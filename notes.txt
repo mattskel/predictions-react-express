@@ -7,5 +7,14 @@ You can initialise your project with node using npm init
 If node has been installed globally, you wont see a node_modules folder
 
 Building a react app from scratch
+
 The publich directory will handle any static assets
+
 Add babel. Babel compiles the code
+
+Add Webpack. Webpack uses loaders to process different types of files for bundling.
+To ustilise Webpack need to configure to use our loaders and prepare dev server.
+Webpack configuration is in webpack.config.js
+entry tells Webpack where our application starts
+module defines how javascript modules are transformed according to the rules
+output tells Webpack where to put bundled code 
