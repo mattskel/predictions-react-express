@@ -1,0 +1,7 @@
+Can easily add react to an existing project by adding the script tags to the <body>
+React is just a language used to describe a user interface. You dont need node to run react, however 
+
+node is a popular platform to run a web server that can host react apps
+
+You can initialise your project with node using npm init
+If node has been installed globally, you wont see a node_modules folder
