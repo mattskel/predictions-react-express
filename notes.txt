@@ -20,3 +20,9 @@ module defines how javascript modules are transformed according to the rules
 output tells Webpack where to put bundled code 
 
 React. ReactDOM.render is the function that tells React what to render and where to render it
+Note to self: Might need to go back and fix the version numbers.
+
+To start server run 
+$webpack-dev-server --mode development
+For some reason to add to the start script the command needs to be "webpack serve --mode development"
+
