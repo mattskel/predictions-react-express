@@ -26,3 +26,19 @@ To start server run
 $webpack-dev-server --mode development
 For some reason to add to the start script the command needs to be "webpack serve --mode development"
 
+** Google sheets API **
+
+Some things to consider...
+You will need to create a new project in your google cloud console
+Create credentials including API key, OAuth token and service accounts
+Enable the sheets api in this project
+Get the spreadsheetId from the url between the d/ and the /edit
+
+How can I load info from my sheets api onto my page?
+Create an api endpoint in server.js that returns the data i want from sheets api
+Then from inside my app I can call my express server to get the data i need
+third party API <=> Express app <=> React app
+
+Having issues using node-fetch package. Latest version only works with ES6
+Had to revert to an older version.
+Unable to get the latest version working...
