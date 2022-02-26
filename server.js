@@ -46,7 +46,7 @@ app.get("/api/predictions/form/labels", async (req, res) => {
  */
 
 app.get('*', (req, res) => {
-  res.sendFile('public/index.html', { root: __dirname });
+  res.sendFile('dist/index.html', { root: __dirname });
 });
 
 // Serve the files on port 3000.

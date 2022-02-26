@@ -1,11 +1,14 @@
 const path = require("path");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/index.js',
-    another: './src/another-module.js'
+    index: './src/index.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin(),
+  ],
   mode: "development",
   module: {
     rules: [
@@ -26,6 +29,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist/"),
     publicPath: "/dist/",
     filename: '[name].bundle.js',
+    clean: true
   },
   devServer: {
     contentBase: path.join(__dirname, "public/"),
@@ -33,5 +37,8 @@ module.exports = {
     publicPath: "http://localhost:3000/dist/",
     hotOnly: true
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({template: './src/template.html', inject: 'body'})
+  ]
 };
