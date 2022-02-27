@@ -1,4 +1,5 @@
 import React, { Component} from "react";
+import _ from 'lodash';
 
 class PredictionForm extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class PredictionForm extends Component {
   }
 
   handleSubmit(event) {
-    alert('Your team is ' + this.state.team);
+    const team = this.state.team;
+    alert(_.join(['Your', 'team', 'is', team], ' '))
     event.preventDefault();
   }
 
