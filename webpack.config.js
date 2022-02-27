@@ -6,9 +6,6 @@ module.exports = {
   entry: {
     index: './src/index.js'
   },
-  plugins: [
-    new HtmlWebpackPlugin(),
-  ],
   mode: "development",
   module: {
     rules: [
