@@ -4,8 +4,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    index: './src/index.js',
-    another: './src/another-module.js'
+    index: {
+      import: './src/index.js',
+      dependOn: 'shared'
+    },
+    another: {
+      import: './src/another-module.js',
+      dependOn: 'shared'
+    },
+    shared: 'lodash'
   },
   mode: "development",
   module: {
@@ -38,5 +45,8 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({template: './src/template.html', inject: 'body'})
-  ]
+  ],
+  optimization: {
+    runtimeChunk: 'single'
+  }
 };
