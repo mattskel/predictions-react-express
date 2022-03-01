@@ -1,5 +1,7 @@
-import React, { Component} from "react";
+import React, { Component, Suspense } from "react";
 import _ from 'lodash';
+
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
 
 class PredictionForm extends Component {
   constructor(props) {
@@ -21,11 +23,16 @@ class PredictionForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        Team:
-        <input type="text" name="team" value={this.state.team} onChange={this.handleChange} />
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          Team:
+          <input type="text" name="team" value={this.state.team} onChange={this.handleChange} />
+          <input type="submit" value="Submit" />
+        </form>
+        <Suspense fallback={<div>Loading...</div>}>
+          <OtherComponent />
+        </Suspense>
+      </div>
     )
   }
 }
