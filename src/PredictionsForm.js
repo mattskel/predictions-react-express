@@ -1,9 +1,10 @@
 import React, { Component, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import _ from 'lodash';
 
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
 
-class PredictionForm extends Component {
+class PredictionsForm extends Component {
   constructor(props) {
     super(props);
     this.state = {team: ''};
@@ -25,7 +26,7 @@ class PredictionForm extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          Team:
+          What team will win the AFL premiership?
           <input type="text" name="team" value={this.state.team} onChange={this.handleChange} />
           <input type="submit" value="Submit" />
         </form>
@@ -37,4 +38,4 @@ class PredictionForm extends Component {
   }
 }
 
-export default PredictionForm;
+export default PredictionsForm;
