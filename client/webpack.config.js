@@ -25,10 +25,10 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     proxy: {
-      '/': 'http://localhost:3000',
+      '/api': 'http://localhost:3000',
     },
   },
   plugins: [
-    new HtmlWebpackPlugin({template: './src/index.html'})
+    new HtmlWebpackPlugin({template: './src/index.html', inject: 'body'})
   ]
 };
