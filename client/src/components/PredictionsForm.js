@@ -7,14 +7,14 @@ const OtherComponent = React.lazy(() => import('./OtherComponent'));
 class PredictionsForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {team: ''};
+    this.state = {team: '', brownlow: ''};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({team: event.target.value});
-  }
+  // handleChange(event) {
+  //   this.setState({team: event.target.value});
+  // }
 
   handleSubmit(event) {
     const team = this.state.team;
@@ -22,12 +22,26 @@ class PredictionsForm extends Component {
     event.preventDefault();
   }
 
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    
+    this.setState({[name]: value})
+  }
+
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          What team will win the AFL premiership?
-          <input type="text" name="team" value={this.state.team} onChange={this.handleChange} />
+          <label>
+            AFL Premiers?
+            <input type="text" name="team" value={this.state.team} onChange={this.handleChange} />
+          </label><br/>
+          <label>
+            Brownlow?
+            <input type="text" name="brownlow" value={this.state.brownlow} onChange={this.handleChange} />
+          </label><br/>
           <input type="submit" value="Submit" />
         </form>
         <Suspense fallback={<div>Loading...</div>}>
