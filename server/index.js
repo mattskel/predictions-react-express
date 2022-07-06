@@ -1,20 +1,49 @@
 const express = require('express');
 const app = express();
 const users = require('./routes/users');
+const request = require('request');
+const axios = require('axios');
 const jose = require('jose')
 const https = require('https');
+const bodyParser = require('body-parser');
+// const {createHmac} = require('crypto');
+
+const spreadsheetId = '100SvcRPQ_COd5xYAAvDvGcT2KYQa4uctsavZibcYTdY';
+
 require('dotenv').config();
 
 app.use('/api/users', users);
+app.use(bodyParser.json())
 
 app.get("/api", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.get('/posts', async (req, res) => {
+/**
+ * Simple API fetch get with API key only
+ * GET https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}
+ */
+ app.get("/api/predictions/form", () => {
+ 
+  const spreadsheetId = '100SvcRPQ_COd5xYAAvDvGcT2KYQa4uctsavZibcYTdY'
+  const options = {method: 'GET'};
+  const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}?key=${process.env.GOOGLE_API_KEY}`;
+  const req = https.request(path, options, (res) => {
 
+    res.on('data', (d) => {
+      process.stdout.write(d);
+    });
+  });
+
+  req.on('error', (e) => {
+    console.error(e);
+  });
+  req.end();
+})
+
+// Middleware for getting access token using JWT
+async function authenticateToken(req, res, next) {
   // Generate the JWT
-  // Remember to remove all the "\n" from the string
   const ecPrivateKey = await jose.importPKCS8(process.env.SERVICE_ACCOUNT_PRIVATE_KEY, 'RS256')
   const jwt = await new jose.SignJWT({
     scope: "https://www.googleapis.com/auth/spreadsheets"
@@ -27,16 +56,34 @@ app.get('/posts', async (req, res) => {
     .sign(ecPrivateKey)
 
   // Generate the bearer token
-  // This is just the api key  
   const grant_type = 'urn%3Aietf%3Aparams%3Aoauth%3Agrant-type%3Ajwt-bearer';
   const path = `https://oauth2.googleapis.com/token?grant_type=${grant_type}&assertion=${jwt}`;
   const options = {
-    method: 'POST',
     header: {
       Authorization: `Bearer ${process.env.SERVICE_ACCOUNT_PUBLIC_KEY}`
     }
   };
 
+  try {
+    const response = await axios.post(path, options);
+    const {data} = response || {};
+    const {access_token} = data || {};
+    req.accessToken = access_token;
+  } catch (error) {
+    if (error) return res.sendStatus(403)
+  }
+
+  next();
+}
+
+app.use(authenticateToken);
+app.get("/api/predictions/form/submit/", async (req, res) => {
+  const range = 'Sheet1!A1:B2';
+  const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?access_token=${req.accessToken}&valueInputOption=RAW`;
+  const method = 'PUT';
+  const header = {Authorization: `Bearer ${req.accessToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+  const body = {};
+  const options = {method, header, body};
   const request = https.request(path, options, response => {
     console.log(`statusCode: ${response.statusCode}`)
   
@@ -49,8 +96,9 @@ app.get('/posts', async (req, res) => {
     console.error(error)
   })
   
-  request.end();
+  request.end()
 })
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!\n');
 });
