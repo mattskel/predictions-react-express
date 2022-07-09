@@ -77,7 +77,7 @@ async function authenticateToken(req, res, next) {
 }
 
 app.use(authenticateToken);
-app.get("/api/predictions/form/submit/", async (req, res) => {
+app.post("/api/predictions/form/submit", async (req, res) => {
   const range = 'Sheet1!B2:C2';
   const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?access_token=${req.accessToken}&valueInputOption=RAW`;
   const method = 'PUT';
