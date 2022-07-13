@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import * as styles from "./PredictionsForm.css";
 import _ from 'lodash';
 
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
@@ -38,11 +39,11 @@ class PredictionsForm extends Component {
             AFL Premiers?
             <input type="text" name="team" value={this.state.team} onChange={this.handleChange} />
           </label><br/>
-          <label>
+          <label className={styles.bigblue}>
             Brownlow?
             <input type="text" name="brownlow" value={this.state.brownlow} onChange={this.handleChange} />
           </label><br/>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit" disabled={this.state.submitted}/>
         </form>
         <Suspense fallback={<div>Loading...</div>}>
           <OtherComponent />
