@@ -77,19 +77,41 @@ async function authenticateToken(req, res, next) {
 }
 
 app.use(authenticateToken);
+
+app.get("/api/predictions/form/questions", async (req, res) => {
+  const range = 'Sheet1!A1:C1'
+  const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?access_token=${req.accessToken}`;
+  const method = 'GET';
+  const header = {Authorization: `Bearer ${req.accessToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
+  const data = JSON.stringify(req.body);
+  const options = {method, header};
+  const request = https.request(path, options, response => {
+    response.on('data', d => {
+      res.json(JSON.parse(d.toString()));
+    })
+  });
+
+  request.on('error', error => {
+    console.log(error);
+  });
+
+  request.write(data);
+  request.end();
+})
+
 app.post("/api/predictions/form/submit", async (req, res) => {
   const range = 'Sheet1!B2:C2';
   const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?access_token=${req.accessToken}&valueInputOption=RAW`;
   const method = 'PUT';
   const header = {Authorization: `Bearer ${req.accessToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-  const values = [["Melbourne", "Panthers"]]
-  const data = JSON.stringify({values});
+  const data = JSON.stringify(req.body);
   const options = {method, header};
   const request = https.request(path, options, response => {
     console.log(`statusCode: ${response.statusCode}`)
   
     response.on('data', d => {
       process.stdout.write(d);
+      res.json({ message: "Hello from server!" });
     })
   });
 

@@ -13,3 +13,10 @@ export function setPredictions(item) {
   })
     .then(response => response.text());
 }
+
+export function getQuestions() {
+  return fetch('/api/predictions/form/questions', {
+    method: 'get',
+  })
+    .then(response => response.text())
+}
