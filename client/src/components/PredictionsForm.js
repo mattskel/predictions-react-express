@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
 
-class PredictionsForm extends Component {
+class _PredictionsForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,6 +69,64 @@ class PredictionsForm extends Component {
       </div>
     )
   }
+}
+
+const PredictionsForm = () => {
+
+
+  const [values, setValues] = useState({
+    // username: "",
+    // email: "",
+    // birthday: "",
+    // password: "",
+    // confirmPassword: "",
+  });
+
+  useEffect(() => {
+    getQuestions()
+      .then((response) => {
+        const {values: [questions] = []} = JSON.parse(response) || {};
+        questions.forEach(question => {
+          values[question] = "";
+          setValues({ ...values });
+        });
+      });
+  }, [])
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    // this.setState({isSubmitting: true})  
+    // const team = this.state.team;
+    // const brownlow = this.state.brownlow;
+    // setPredictions({team, brownlow})
+    //   .then(() => {
+    //     alert('Success.')
+    //   });
+    alert('Success.')
+  }
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="highlights">
+      <form onSubmit={onSubmit}>
+        {Object.keys(values).map((question, index) => (
+          <FormInput
+            key={index}
+            label={question}
+            onChange={onChange}
+            name={question}
+          />
+        ))}
+        <input type="submit" value="Submit"/>
+      </form>
+      <Suspense fallback={<div>Loading...</div>}>
+        <OtherComponent />
+      </Suspense>
+    </div>
+  )
 }
 
 export default PredictionsForm;
