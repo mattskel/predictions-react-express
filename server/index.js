@@ -104,7 +104,9 @@ app.post("/api/predictions/form/submit", async (req, res) => {
   const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?access_token=${req.accessToken}&valueInputOption=RAW`;
   const method = 'PUT';
   const header = {Authorization: `Bearer ${req.accessToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-  const data = JSON.stringify(req.body);
+  // const data = JSON.stringify(req.body);
+  // TODO update data to read from the request body
+  const data = JSON.stringify({ values: [['team', 'brownlow']] })
   const options = {method, header};
   const request = https.request(path, options, response => {
     console.log(`statusCode: ${response.statusCode}`)

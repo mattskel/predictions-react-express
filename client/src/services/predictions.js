@@ -1,5 +1,4 @@
-export function setPredictions(item) {
-  const {team, brownlow} = item;
+export function setPredictions(data) {
 
   // process.env doesn't work in react (unless you are using create-react-app)
   // React runs on the browser so cannot keep our secrets
@@ -8,7 +7,8 @@ export function setPredictions(item) {
   // The proxy server can then go onto make the request with the secret
   return fetch('/api/predictions/form/submit', {
     method: 'post',
-    body: JSON.stringify({ values: [[team, brownlow]] }),
+    // body: JSON.stringify({ values: [[team, brownlow]] }),
+    body: JSON.stringify(data),
     headers: {'Content-Type': 'application/json'}
   })
     .then(response => response.text());

@@ -1,4 +1,5 @@
 import React, { Component, Suspense, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Routes, Route } from "react-router-dom";
 import { setPredictions, getQuestions } from "../services/predictions";
 import "./PredictionsForm.css";
@@ -73,14 +74,8 @@ class _PredictionsForm extends Component {
 
 const PredictionsForm = () => {
 
-
-  const [values, setValues] = useState({
-    // username: "",
-    // email: "",
-    // birthday: "",
-    // password: "",
-    // confirmPassword: "",
-  });
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [values, setValues] = useState({});
 
   useEffect(() => {
     getQuestions()
@@ -93,31 +88,22 @@ const PredictionsForm = () => {
       });
   }, [])
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    // this.setState({isSubmitting: true})  
-    // const team = this.state.team;
-    // const brownlow = this.state.brownlow;
-    // setPredictions({team, brownlow})
-    //   .then(() => {
-    //     alert('Success.')
-    //   });
-    alert('Success.')
+  const onSubmit = data => {
+    setPredictions(data)
+      .then(() => {
+        alert('Success.')
+      });
   }
-
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
 
   return (
     <div className="highlights">
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {Object.keys(values).map((question, index) => (
           <FormInput
             key={index}
             label={question}
-            onChange={onChange}
-            name={question}
+            register={register}
+            error={errors[question]}
           />
         ))}
         <input type="submit" value="Submit"/>
