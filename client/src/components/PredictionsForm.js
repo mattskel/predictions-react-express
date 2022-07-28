@@ -106,7 +106,12 @@ const PredictionsForm = () => {
             error={errors[question]}
           />
         ))}
-        <input type="submit" value="Submit"/>
+        {/* <input type="submit" value="Submit"/> */}
+        <button className="mdc-button foo-button">
+          <div className="mdc-button__ripple"></div>
+          {/* <span className="mdc-button__label"></span> */}
+          Button
+        </button>
       </form>
       <Suspense fallback={<div>Loading...</div>}>
         <OtherComponent />
