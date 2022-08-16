@@ -1,0 +1,61 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "This is my attempt at a react app from scratch using node server",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --mode development --hot",
+    "server": "nodemon server.js",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattskel/my-page.git"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "boiler",
+    "plate"
+  ],
+  "author": "Matt Skelley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattskel/my-page/issues"
+  },
+  "homepage": "https://github.com/mattskel/my-page#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@webpack-cli/serve": "^1.6.1",
+    "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.7.1",
+    "extract-loader": "^5.1.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^7.0.1",
+    "sass": "^1.54.0",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^0.23.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-middleware": "^5.3.1",
+    "webpack-dev-server": "^3.11.3"
+  },
+  "dependencies": {
+    "@material/button": "^14.0.0",
+    "dotenv": "^16.0.1",
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.15",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-hook-form": "^7.33.1",
+    "react-router-dom": "^6.3.0"
+  }
+}

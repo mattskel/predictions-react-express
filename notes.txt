@@ -1,0 +1,44 @@
+Can easily add react to an existing project by adding the script tags to the <body>
+React is just a language used to describe a user interface. You dont need node to run react, however 
+
+node is a popular platform to run a web server that can host react apps
+
+You can initialise your project with node using npm init
+If node has been installed globally, you wont see a node_modules folder
+
+Building a react app from scratch
+
+The publich directory will handle any static assets
+
+Add babel. Babel compiles the code
+
+Add Webpack. Webpack uses loaders to process different types of files for bundling.
+To ustilise Webpack need to configure to use our loaders and prepare dev server.
+Webpack configuration is in webpack.config.js
+entry tells Webpack where our application starts
+module defines how javascript modules are transformed according to the rules
+output tells Webpack where to put bundled code 
+
+React. ReactDOM.render is the function that tells React what to render and where to render it
+Note to self: Might need to go back and fix the version numbers.
+
+To start server run 
+$webpack-dev-server --mode development
+For some reason to add to the start script the command needs to be "webpack serve --mode development"
+
+** Google sheets API **
+
+Some things to consider...
+You will need to create a new project in your google cloud console
+Create credentials including API key, OAuth token and service accounts
+Enable the sheets api in this project
+Get the spreadsheetId from the url between the d/ and the /edit
+
+How can I load info from my sheets api onto my page?
+Create an api endpoint in server.js that returns the data i want from sheets api
+Then from inside my app I can call my express server to get the data i need
+third party API <=> Express app <=> React app
+
+Having issues using node-fetch package. Latest version only works with ES6
+Had to revert to an older version.
+Unable to get the latest version working...
