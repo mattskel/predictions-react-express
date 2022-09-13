@@ -31,7 +31,7 @@ const FormInput = ({ label, register, error }) => {
       <label className="mdc-text-field mdc-text-field--filled">
           <span className="mdc-text-field__ripple"></span>
           <span className="mdc-floating-label" id="my-label-id">{label}</span>
-          <input className="mdc-text-field__input" type="text" aria-labelledby="my-label-id"/>
+          <input className="mdc-text-field__input" type="text" aria-labelledby="my-label-id" {...register(label, {required: true})}/>
           <span className="mdc-line-ripple"></span>
         </label>
     </div>
