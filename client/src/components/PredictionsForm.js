@@ -76,11 +76,13 @@ const PredictionsForm = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [values, setValues] = useState({});
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     getQuestions()
       .then((response) => {
         const {values: [questions] = []} = JSON.parse(response) || {};
+        setQuestions(questions);
         questions.forEach(question => {
           values[question] = "";
           setValues({ ...values });
@@ -89,7 +91,8 @@ const PredictionsForm = () => {
   }, [])
 
   const onSubmit = data => {
-    setPredictions(data)
+    const predictions = questions.map((question) => data[question]);
+    setPredictions(predictions)
       .then(() => {
         alert('Success.')
       });
