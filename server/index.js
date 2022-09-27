@@ -100,22 +100,18 @@ app.get("/api/predictions/form/questions", async (req, res) => {
 })
 
 app.post("/api/predictions/form/submit", async (req, res) => {
-  const range = 'Sheet1!B2:D2';
-  const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?access_token=${req.accessToken}&valueInputOption=RAW`;
-  const method = 'PUT';
+  const range = 'Sheet1!A1';
+  const path = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}:append?access_token=${req.accessToken}&valueInputOption=RAW`;
+  const method = 'POST';
   const header = {Authorization: `Bearer ${req.accessToken}`, Accept: 'application/json', 'Content-Type': 'application/json'};
-  console.log(req.body)
   const data = JSON.stringify({ values: [req.body] });
-  // console.log(data);
-  // TODO update data to read from the request body
-  // const data = JSON.stringify({ values: [['team', 'brownlow']] })
   const options = {method, header};
   const request = https.request(path, options, response => {
     console.log(`statusCode: ${response.statusCode}`)
   
     response.on('data', d => {
       process.stdout.write(d);
-      res.json({ message: "Hello from server!" });
+      // res.json({ message: "Hello from server!" });
     })
   });
 
