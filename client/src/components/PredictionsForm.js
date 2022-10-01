@@ -93,8 +93,17 @@ const PredictionsForm = () => {
   const onSubmit = data => {
     const predictions = questions.map((question) => data[question]);
     setPredictions(predictions)
-      .then(() => {
-        alert('Success.')
+      .then((response) => {
+        console.log('response', JSON.stringify(response));
+        const {statusCode, error} = JSON.parse(response) || {};
+        if (error) return alert('🤬 Server error.');
+ 
+        if (statusCode !== 200) {
+          return alert('Something went wrong. Server returned status code ' + statusCode + '. 🫠');
+        }
+
+        return alert('✅ Form submitted. Good luck with your tips 🤞');
+
       });
   }
 

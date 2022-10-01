@@ -107,16 +107,17 @@ app.post("/api/predictions/form/submit", async (req, res) => {
   const data = JSON.stringify({ values: [req.body] });
   const options = {method, header};
   const request = https.request(path, options, response => {
-    console.log(`statusCode: ${response.statusCode}`)
+    console.log(`statusCode: ${response.statusCode}`);
   
     response.on('data', d => {
-      process.stdout.write(d);
-      // res.json({ message: "Hello from server!" });
+      // process.stdout.write(d);
+      res.json({ statusCode: response.statusCode });
     })
   });
 
   request.on('error', error => {
     console.error(error)
+    res.json({error});
   })
   
   request.write(data);
