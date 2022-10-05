@@ -8,7 +8,7 @@ import _ from 'lodash';
 
 const PredictionsForm = () => {
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors, isSubmitted } } = useForm();
   const [values, setValues] = useState({});
   const [questions, setQuestions] = useState([]);
 
@@ -28,7 +28,6 @@ const PredictionsForm = () => {
     const predictions = questions.map((question) => data[question]);
     setPredictions(predictions)
       .then((response) => {
-        console.log('response', JSON.stringify(response));
         const {statusCode, error} = JSON.parse(response) || {};
         if (error) return alert('🤬 Server error.');
  
@@ -42,7 +41,7 @@ const PredictionsForm = () => {
   }
 
   return (
-    <div className="highlights">
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         {Object.keys(values).map((question, index) => (
           <FormInput
@@ -52,7 +51,7 @@ const PredictionsForm = () => {
             error={errors[question]}
           />
         ))}
-        <button className="mdc-button foo-button">
+        <button className="mdc-button foo-button" disabled={isSubmitted}>
           <div className="mdc-button__ripple"></div>
           Submit predictions
         </button>
