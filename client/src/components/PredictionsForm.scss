@@ -1,0 +1,7 @@
+@use "@material/button";
+
+$color: dodgerblue;
+
+button.mdc-button {
+  @include button.filled-accessible($color)
+}

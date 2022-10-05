@@ -1,7 +1,22 @@
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/textfield";
 @use "@material/textfield/helper-text";
 
-$color: green;
+$color: dodgerblue;
 
-.mdc-text-field--invalid {
+.mdc-text-field--focused {
+  @include textfield.label-color($color);
+}
+
+:not(.mdc-text-field--focused) {
+ @include textfield.line-ripple-color($color)
+}
+
+.mdc-text-field--invalid.mdc-text-field--focused {
   @include helper-text.helper-text-validation-color($color)
+}
+
+div[data-lastpass-icon-root] {
+  visibility: hidden;
 }

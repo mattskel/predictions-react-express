@@ -1,12 +1,11 @@
-import React, { Component, Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Routes, Route } from "react-router-dom";
 import { setPredictions, getQuestions } from "../services/predictions";
 import "./PredictionsForm.css";
+import "./PredictionsForm.scss";
 import FormInput from "./FormInput";
 import _ from 'lodash';
 
-const OtherComponent = React.lazy(() => import('./OtherComponent'));
 const PredictionsForm = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -53,16 +52,11 @@ const PredictionsForm = () => {
             error={errors[question]}
           />
         ))}
-        {/* <input type="submit" value="Submit"/> */}
         <button className="mdc-button foo-button">
           <div className="mdc-button__ripple"></div>
-          {/* <span className="mdc-button__label"></span> */}
-          Button
+          Submit predictions
         </button>
       </form>
-      <Suspense fallback={<div>Loading...</div>}>
-        <OtherComponent />
-      </Suspense>
     </div>
   )
 }

@@ -4,6 +4,10 @@ import './FormInput.css'
 import {MDCTextField} from '@material/textfield';
 import {MDCTextFieldHelperTextFoundation} from '@material/textfield/helper-text/foundation';
 
+/**
+ * Initiate mdc component without using the foundation/adapter pattern
+ * @returns [function]
+ */
 function useHookWithRefCallback() {
   const ref = useRef(null)
   const setRef = useCallback(node => {
