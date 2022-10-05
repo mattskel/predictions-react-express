@@ -1,0 +1,7 @@
+@use "@material/textfield/helper-text";
+
+$color: green;
+
+.mdc-text-field--invalid {
+  @include helper-text.helper-text-validation-color($color)
+}
