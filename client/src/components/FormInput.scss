@@ -7,6 +7,7 @@ $color: dodgerblue;
 
 .mdc-text-field--focused {
   @include textfield.label-color($color);
+  @include textfield.caret-color($color);
 }
 
 :not(.mdc-text-field--focused) {
