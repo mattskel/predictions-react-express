@@ -8,7 +8,7 @@ import PredictionsForm from "./components/PredictionsForm";
 class App extends Component{
   render(){
     return(
-      <div className="App">
+      <div className="App my-css-class">
         <h1> Hello, World! </h1>
         <button className="mdc-button foo-button">
           <div className="mdc-button__ripple"></div>
